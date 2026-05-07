@@ -636,19 +636,15 @@ app.get('/api/unsubscribe', (req, res) => {
 
 // ── VELANTO WEBHOOK ────────────────────────────────────────────────────────────
 app.post('/webhook', async (req, res) => {
-  const sig = req.headers['x-velanto-signature'];
-  if (!verifyVelantoSig(req.rawBody, sig)) return res.status(401).json({ error: 'Invalid signature' });
-
   const { run_id, input = {} } = req.body;
   const { mode = 'daily', topic, tradition_filter, depth_preference } = input;
 
   try {
-    const date       = new Date().toISOString().slice(0, 10);
-    const dailyTopic = await generateOrLoadTopic(date);
+    const date = new Date().toISOString().slice(0, 10);
 
     let userPrompt = '';
     if (mode === 'daily') {
-      userPrompt = `Generate today's philosophical seed idea for ${date}.${tradition_filter && tradition_filter !== 'Any' ? ` Focus on ${tradition_filter} philosophy.` : ''}`;
+      userPrompt = `Generate a philosophical seed idea for ${date}.${tradition_filter && tradition_filter !== 'Any' ? ` Focus on ${tradition_filter} philosophy.` : ''}`;
     } else if (mode === 'explore') {
       userPrompt = `The member wants to explore: "${topic}".${tradition_filter && tradition_filter !== 'Any' ? ` Draw from ${tradition_filter} philosophy.` : ''}${depth_preference === 'beginner' ? ' Keep it accessible.' : depth_preference === 'deep' ? ' Go technically deep.' : ''}`;
     } else if (mode === 'debate') {
@@ -656,7 +652,8 @@ app.post('/webhook', async (req, res) => {
     }
 
     const msg = await anthropic.messages.create({
-      model: 'claude-sonnet-4-20250514', max_tokens: 1000,
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 1000,
       system: `You are AGORA, a philosophical guide drawing from the entire history of human thought.
 Always cite sources. Connect traditions. Have genuine opinions. Be surprising, not clichéd.
 Respond ONLY with JSON (no backticks):
@@ -694,8 +691,8 @@ Respond ONLY with JSON (no backticks):
           rows: p.related_ideas.map(r => [r.philosopher, r.tradition, r.idea]),
         }] : [],
         sections: [
-          { title: 'Source',                  content: `**${p.philosopher}** — *${p.source}*`,    defaultOpen: true },
-          { title: 'Question to sit with',    content: `> *${p.question_to_sit_with}*`,           defaultOpen: true },
+          { title: 'Source',               content: `**${p.philosopher}** — *${p.source}*`,  defaultOpen: true },
+          { title: 'Question to sit with', content: `> *${p.question_to_sit_with}*`,         defaultOpen: true },
         ],
         content: `## ${p.seed_idea}\n\n${p.exploration}`,
       },
@@ -703,12 +700,7 @@ Respond ONLY with JSON (no backticks):
     });
 
   } catch(e) {
-    console.error(`[WEBHOOK ${run_id}]`, e.message);
+    console.error(`[WEBHOOK ${run_id}] ${e.message}`);
     return res.status(200).json({ status: 'failed', error: e.message });
   }
 });
-
-app.get('/', (_req, res) => res.json({ name: 'AGORA', version: '2.0', status: 'ok' }));
-
-app.listen(PORT, () => console.log(`AGORA v2.0 running on port ${PORT}`));
-export default app;
