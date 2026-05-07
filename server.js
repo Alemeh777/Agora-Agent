@@ -463,14 +463,12 @@ cron.schedule('0 23 * * *', async () => {
 // ─── EXPRESS ──────────────────────────────────────────────────────────────────
 const app = express();
 
-app.use((req, _res, next) => {
-  let data = '';
-  req.on('data', c => data += c);
-  req.on('end', () => { req.rawBody = data; next(); });
-});
-
 app.use(cors());
-app.use(express.json());
+app.use(express.json({
+  verify: (req, _res, buf) => {
+    req.rawBody = buf.toString();
+  }
+}));
 app.use('/api/auth', rateLimit({ windowMs: 15 * 60 * 1000, max: 20 }));
 app.use('/api/conversation/message', rateLimit({ windowMs: 60 * 1000, max: 15 }));
 
