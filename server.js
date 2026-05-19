@@ -66,7 +66,7 @@ app.post('/webhook', async (req, res) => {
       const date = scheduledAt.slice(0, 10);
 
       const msg = await anthropic.messages.create({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-3-5-sonnet-20241022',
         max_tokens: 600,
         system: `You are AGORA, choosing a daily philosophical prompt for a global community.
 Rotate between QUESTION / STATEMENT / QUOTE types across days.
@@ -170,7 +170,7 @@ Respond ONLY with JSON (no backticks, no explanation):
       const emptyRound = responded === 0;
 
       const msg = await anthropic.messages.create({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-3-5-sonnet-20241022',
         max_tokens: 2000,
         system: `You are AGORA — the narrator and host of a daily philosophical podcast.
 Tone: warm, intelligent, unhurried. Like a thoughtful late-night radio programme about ideas.
@@ -239,7 +239,7 @@ Write the full script ready to be read aloud. No stage directions. No brackets. 
     const date = new Date().toISOString().slice(0, 10);
 
     const msg = await anthropic.messages.create({
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-3-5-sonnet-20241022',
       max_tokens: 800,
       system: `You are AGORA, a philosophical guide drawing from the entire history of human thought.
 Always cite sources. Connect traditions. Have genuine opinions. Be surprising, not clichéd.
