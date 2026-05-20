@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 const WEBHOOK_SECRET = process.env.VELANTO_WEBHOOK_SECRET || '';
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-const MODEL = process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-6';
+const MODEL = process.env.ANTHROPIC_MODEL || 'claude-3-7-sonnet-latest';
 
 app.use(express.json({
   verify: (req, _res, buf) => { req.rawBody = buf.toString(); }
@@ -97,7 +97,7 @@ Opening → the question → anonymous voices → connecting threads → closing
           content: `## ${topicText}\n\n*— ${ctx.attribution}*\n\n---\n\n${script}`
         },
         compute_cost_usd: 0.002,
-        model_used: 'claude-sonnet-4-6'
+        model_used: 'claude-3-7-sonnet-latest'
       });
     } catch(e) {
       console.error('[AGORA] Aggregate error:', e.message);
@@ -131,7 +131,7 @@ Opening → the question → anonymous voices → connecting threads → closing
         content: `## ${p.seed_idea}\n\n${p.exploration}`
       },
       compute_cost_usd: 0.001,
-      model_used: 'claude-sonnet-4-6'
+      model_used: 'claude-3-7-sonnet-latest'
     });
   } catch(e) {
     console.error('[AGORA] Fallback error:', e.message);
