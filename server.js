@@ -97,7 +97,7 @@ Opening → the question → anonymous voices → connecting threads → closing
           content: `## ${topicText}\n\n*— ${ctx.attribution}*\n\n---\n\n${script}`
         },
         compute_cost_usd: 0.002,
-        model_used: 'claude-3-7-sonnet-latest'
+        model_used: 'claude-opus-4-7';
       });
     } catch(e) {
       console.error('[AGORA] Aggregate error:', e.message);
@@ -131,7 +131,7 @@ Opening → the question → anonymous voices → connecting threads → closing
         content: `## ${p.seed_idea}\n\n${p.exploration}`
       },
       compute_cost_usd: 0.001,
-      model_used: 'claude-3-7-sonnet-latest'
+      model_used: 'claude-opus-4-7';
     });
   } catch(e) {
     console.error('[AGORA] Fallback error:', e.message);
