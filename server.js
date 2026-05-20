@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 const WEBHOOK_SECRET = process.env.VELANTO_WEBHOOK_SECRET || '';
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-const MODEL = 'claude-3-5-sonnet-20241022';
+const MODEL = process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-6';
 
 app.use(express.json({
   verify: (req, _res, buf) => { req.rawBody = buf.toString(); }
