@@ -42,7 +42,7 @@ app.post('/webhook', async (req, res) => {
 
       const msg = await anthropic.messages.create({
         model: MODEL,
-        max_tokens: 500,
+        max_tokens: 300,
         system: `You are AGORA choosing a daily philosophical prompt.
 Vary between QUESTION/STATEMENT/QUOTE types and traditions (Stoic, Buddhist, Existentialist, Ubuntu, Confucian, Taoist etc).
 Be surprising and specific. Avoid clichés.
@@ -116,7 +116,7 @@ Respond ONLY with JSON (no backticks):
 
       const msg = await anthropic.messages.create({
         model: MODEL,
-        max_tokens: 1000,
+        max_tokens: 400,
         system: `You are AGORA, host of a daily philosophical podcast. Warm, intelligent, unhurried tone.
 Write a 300-400 word digest script ready to be read aloud.
 Structure: opening → the question → voices from today (anonymously) → connecting threads → closing question.
@@ -163,7 +163,7 @@ Never name respondents. Use "one voice today..." or "someone thinking from a Bud
   try {
     const msg = await anthropic.messages.create({
       model: MODEL,
-      max_tokens: 600,
+      max_tokens: 300,
       system: `You are AGORA, a philosophical guide. Respond ONLY with JSON (no backticks):
 {
   "seed_idea": "one sentence",
