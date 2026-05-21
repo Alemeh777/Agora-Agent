@@ -65,7 +65,7 @@ Respond ONLY with JSON (no backticks):
   if (phase === 'aggregate') {
     try {
       const ctx = context_for_aggregate || {};
-      const topicText = ctx.topic_text || 'Today\'s question';
+      const topicText = ctx.topic_text || 'If a sage forgets the words once the meaning is grasped, what becomes of the teacher who insists you remember every word?';
       const responded = response_count || 0;
       const responseList = (responses || []).map((r, i) => `Voice ${i+1} [${r.response?.tradition||'Various'}]: ${r.response?.reflection||''}`).join('\n\n');
 
