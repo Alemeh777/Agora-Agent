@@ -71,7 +71,7 @@ Respond ONLY with JSON (no backticks):
 
       const msg = await anthropic.messages.create({
         model: MODEL,
-        max_tokens: 400,
+        max_tokens: 800,
         system: `You are AGORA, host of a daily philosophical podcast. Warm, intelligent tone. 250-300 words max.
 Opening → the question → anonymous voices → connecting threads → closing question. Never name anyone.`,
         messages: [{ role: 'user', content: responded === 0
