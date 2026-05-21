@@ -97,7 +97,7 @@ Opening → the question → anonymous voices → connecting threads → closing
           content: `## ${topicText}\n\n*— ${ctx.attribution}*\n\n---\n\n${script}`
         },
         compute_cost_usd: 0.002,
-        model_used: 'claude-opus-4-7';
+        model_used: 'claude-opus-4-7'
       });
     } catch(e) {
       console.error('[AGORA] Aggregate error:', e.message);
