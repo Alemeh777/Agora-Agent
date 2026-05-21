@@ -131,7 +131,7 @@ Opening → the question → anonymous voices → connecting threads → closing
         content: `## ${p.seed_idea}\n\n${p.exploration}`
       },
       compute_cost_usd: 0.001,
-      model_used: 'claude-opus-4-7';
+      model_used: 'claude-opus-4-7'
     });
   } catch(e) {
     console.error('[AGORA] Fallback error:', e.message);
